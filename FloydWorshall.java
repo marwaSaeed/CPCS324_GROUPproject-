@@ -13,6 +13,7 @@ public class FloydWorshall {
 	    /////////////////////////////////////////////////////////////////////////////
 	    static void printAlpha()
 	    {
+	    
 	       char[] alpha = 
 	    		   {'A','B','C','D','E','F','G','H','I','J'};
 	       System.out.println();
@@ -47,13 +48,53 @@ public class FloydWorshall {
 	            System.out.println();
 	        }
 	    }
-	 
+	 ///////////////////////////////////////////////////////////////////////////////
+	   //Algorithm
+	   static void Floyd(int distance[][] ,int graph[][])
+	    {
+	      
+		   int i, j, k;
+			 
+	        for ( i = 0; i < 10; i++)
+	            for ( j = 0; j < 10; j++)
+	            	distance[i][j] = graph[i][j];
+	        
+	 // k is an intermediate vertex in shortest path from i to j.
+	        for (k = 0; k < 10; k++)
+	        {
+	        	// one by one pick all vertices as source
+	           for (i = 0; i < 10; i++)
+	            {
+	        	
+	                for (j = 0; j < 10; j++)
+	                {
+	 //We update the value of distance[i][j] as distance[i][k] + distance[k][j] if distance[i][j] > distance[i][k] + distance[k][j]
+	                    if (distance[i][k] + distance[k][j] < distance[i][j])
+	                    	distance[i][j] = distance[i][k] + distance[k][j];
+	                }
+	            }
+	            System.out.println("\n\n D "+(k+1)+": \n"+"_________________________________________________________________");
+	            //fist line 
+	            printAlpha();
+	            if(k==10)
+	            	//last steps
+	            	System.out.println("The following matrix shows the shortest distances between every pair of vertices");
+	            //print solution
+	            printSolution(distance);
+	        }
+	  
+		   
+		   
+		   
+		   
+	    }
 	    
 	    /////////////////////////////////////////////////////////////////////////
 	   	    public static void main (String[] args)
 	    {
-	   
+	   // initialize matrix based on graph 
 	        int graph[][] = { 
+	        		
 	        		 {0,10,inf, inf ,inf,5,inf,inf,inf,inf},//A
 	        		 {inf,0,3, inf ,3,inf,inf,inf,inf,inf},//B
 	        		 {inf,inf,0,4 ,inf,inf,inf,5,inf,inf},//C
@@ -67,34 +108,8 @@ public class FloydWorshall {
 	                        };
 	     
 	        int dist[][] = new int[10][10];
-	        int i, j, k;
-	 
-	        for ( i = 0; i < 10; i++)
-	            for ( j = 0; j < 10; j++)
-	                dist[i][j] = graph[i][j];
-	 
-	        for (k = 0; k < 10; k++)
-	        {
-	           for (i = 0; i < 10; i++)
-	            {
-	                
-	                for (j = 0; j < 10; j++)
-	                {
-	                    // If vertex k is on the shortest path from i to j, then update the value of dist[i][j]
-	                
-	                    if (dist[i][k] + dist[k][j] < dist[i][j])
-	                        dist[i][j] = dist[i][k] + dist[k][j];
-	                }
-	            }
-	            System.out.println("\n\n D "+(k+1)+": \n"+"_________________________________________________________________");
-	            
-	            printAlpha();
-	            if(k==10)
-	            	System.out.println("The following matrix shows the shortest distances between every pair of vertices");
-	            printSolution(dist);
-	        }
-	 
-	     
+	        //send dist and matrix to floyd worshal 
+	       	        Floyd(dist ,graph);
 	       
 	
 	      
