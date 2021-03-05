@@ -11,21 +11,22 @@ import java.io.*;
 
 public class FloydWorshall {
 
-      // Floyd Warshall 
-     //Group Project Phase1 
-    // Marwa , Haya, Intesar
+    // Floyd Warshall 
+    //Group Project Phase1 
+    // Marwa Saeed, Haya Alsheikh , Intesar Ali Hejazy
+    // KAR
+    
     final static int inf = 99999;
     static char[] alpha = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
     /////////////////////////////////////////////////////////////////////////////
-    
-    
+
     //this function prints the alphabetprints the alphabet horizontally
     static void printAlpha() {
         System.out.println();
-    
+
         //For formating
         System.out.printf(" %-5s", " ");
-        
+
         for (int i = 0; i < 10; i++) {
             System.out.printf(" %-5c", alpha[i]);
         }
@@ -34,9 +35,8 @@ public class FloydWorshall {
     }
     //////////////////////////////////////////////////////////////////////////////
 
-    
     // This function prints matrix 
-    static void printMatrix (int dist[][]) {
+    static void printMatrix(int dist[][]) {
         for (int i = 0; i < 10; ++i) {
             //prints the alphabet vertically
             System.out.printf(" %-5c", alpha[i]);
@@ -51,14 +51,21 @@ public class FloydWorshall {
         }
     }
     ///////////////////////////////////////////////////////////////////////////////
-    
 
     //Floyd's Algorithm
     static void Floyd(int graph[][]) {
-        
+
         int i, j, k;// initialize i,j,k
         System.out.println("Floyd's algorithm implementation \n");
-        System.out.println("Weighted matrix ");
+        System.out.println("Weighted matrix: ");
+        printAlpha();
+        printMatrix(graph);
+        
+        
+        System.out.println("------------------------------------------------------------------------");
+        System.out.println("Intermediate matrix for evry iteration:");
+        
+        //----------------------------------------------------------
         // k is an intermediate vertex in shortest path from i to j.
         for (k = 0; k < 10; k++) {
             // one by one pick all vertices as source
@@ -66,7 +73,7 @@ public class FloydWorshall {
 
                 for (j = 0; j < 10; j++) {
                     //We update the value of graph[i][j] as graph[i][k] + graph[k][j] if graph[i][j] > graph[i][k] + graph[k][j]
-                                      graph[i][j]=Math.min( graph[i][j],graph[i][k] + graph[k][j]);
+                    graph[i][j] = Math.min(graph[i][j], graph[i][k] + graph[k][j]);
                 }
             }
 
@@ -77,10 +84,9 @@ public class FloydWorshall {
             //
             System.out.println("\n D " + (k + 1) + ": \n" + "_________________________________________________________________");
 
-            
             printAlpha();
             //print solution
-            printMatrix (graph);
+            printMatrix(graph);
         }
     }
 
